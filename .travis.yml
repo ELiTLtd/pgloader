@@ -1,31 +1,15 @@
 language: common-lisp
 sudo: required
-
+services:
+- docker
 env:
-  matrix:
-    - LISP=ccl
-    - LISP=ccl  PGVERSION=9.6
-    - LISP=sbcl
-    - LISP=sbcl PGVERSION=9.6
-
-install:
-  - ./.travis.sh lisp_install
-  - ./.travis.sh pgdg_repositories
-  - ./.travis.sh postgresql_install
-  - sudo apt-get install -y unzip libsqlite3-dev gawk freetds-dev
-
-before_script:
-  - PGUSER=postgres createuser -S -R -D -E -l pgloader
-  - PGUSER=postgres createdb -E UTF8 -O pgloader pgloader
-  - PGUSER=postgres psql -d pgloader -c "create extension ip4r;"
-  - PGUSER=pgloader psql -d pgloader -c "create schema expected;"
-  - PGUSER=pgloader psql -d pgloader -c "create schema err;"
-  - make --version
-  - make "CL=$LISP"
-
+  global:
+  - ECR_ENDPOINT=689917379567.dkr.ecr.eu-west-1.amazonaws.com
+  - DOCKER_REPO=pgloader
+  - AWS_DEFAULT_REGION=eu-west-1
+  - AWS_ACCESS_KEY_ID=AKIAIZY2ULWWGAL5HDAA
+  - secure: TeV7hFnjlgf4nZRmvJ4dJOYpc56w+CvKBMqYPNyvhe2S/BJIsiOZleBuFWAceHS4PA9rOsnZh0bdpw7LcMzoMN1ftozEQF4xqbMFpkRffK/6Cbb/eL7N/Zr1/9L9iCqYLysXlHdblI3bpRBZKl8MazBmf83a70u4AelnkozFcCi7pWVR9SlwWxPSnH8uea7NU3grbazXrgdGT/eWTp3eYHfKNUzs8MwDT4fvgH5pAiLPqutAJcfvfQR35Gx367eZBgLnt2d3vWwHS4gR300E3WB0guHMvNEszVAX3c9dlzCwMPSpeXGgkDVp1SuKrObXLz859K8lbhY3ZUIUMB+Hf9kRn8pQ0iBvhCqkjkC3W+2Gn+dbcta6ATxXwXsVytb7yPVUMKc6OAhRgFNodAf55mwWXsn1Y7+IcHP2hgz+NqnEAEV5IqXhHi2Zn9im/5Jb0iTZ2DWlRfMBA1BDjLFGGIVqo66XmwaVIsfW95nPausz+dfP7GDTursrEDyki1JtWmYK32Na85IJUN+RgXZTvvcQT3bVpNxHuPcoTtUWNx6XkNdBU+XyE4Msd8l45v9mMV+zyHq4HLkpX5x72kUFLWCBtxi2ColtkTTINJdD6kwQl5hVQ7CxhQG7fu6PrwZZQD01pLgjuoZ9qyCNXzEHPhqLqQqQrNgauIQdClr46M4=
 script:
-  - PGUSER=pgloader make "CL=$LISP" check
-
+- "./build-docker.sh"
 notifications:
-  email:
-    - dim@tapoueh.org
+  email: false

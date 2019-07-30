@@ -1,4 +1,4 @@
-FROM debian:stable-slim as builder
+FROM debian:stable-20190204-slim as builder
 
   RUN apt-get update \
       && apt-get install -y --no-install-recommends \
@@ -26,9 +26,9 @@ FROM debian:stable-slim as builder
 
   RUN mkdir -p /opt/src/pgloader/build/bin \
       && cd /opt/src/pgloader \
-      && make
+      && make DYNSIZE=8192
 
-FROM debian:stable-slim
+FROM debian:stable-20190204-slim
 
   RUN apt-get update \
       && apt-get install -y --no-install-recommends \
