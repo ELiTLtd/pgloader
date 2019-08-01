@@ -34,7 +34,8 @@
     ;;
     ;; and for CL+SSL, we need to call the specific reload function that
     ;; handles some context and things around loading with CFFI.
-    (cl+ssl:reload)))
+    ;; (cl+ssl:reload)
+))
 
 #+ccl  (push #'open-foreign-libs *lisp-startup-functions*)
 #+sbcl (push #'open-foreign-libs sb-ext:*init-hooks*)
