@@ -14,7 +14,7 @@ docker --version
 pip install --user awscli
 export PATH=$PATH:$HOME/.local/bin
 
-aws ecr get-login-password | docker login --username AWS --password-stdin 689917379567.dkr.ecr.eu-west-1.amazonaws.com --region eu-west-1
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 689917379567.dkr.ecr.eu-west-1.amazonaws.com
 
 docker build -f Dockerfile.ccl -t $DOCKER_REPO .
 docker run --rm --name pgloader $DOCKER_REPO bash -c "pgloader --version"
