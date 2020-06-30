@@ -1,6 +1,3 @@
-version: ~> 1.0
-import:
-- ELiTLtd/travis-build-configs:aws.yml@master
 language: common-lisp
 sudo: required
 services:
