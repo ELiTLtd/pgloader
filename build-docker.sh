@@ -12,7 +12,7 @@ COMMIT=${TRAVIS_COMMIT::8}
 
 docker --version
 export PATH=$PATH:$HOME/.local/bin
-docker login -u elitltd -p "$DOCKER_PASSWORD"
+echo "$DOCKER_PASSWORD" | docker login -u elitltd --password-stdin
 
 docker build -f Dockerfile.ccl -t $DOCKER_REPO .
 docker run --rm --name pgloader $DOCKER_REPO bash -c "pgloader --version"
