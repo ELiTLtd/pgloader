@@ -7,7 +7,7 @@ services:
 - docker
 env:
   global:
-  - ECR_ENDPOINT=689917379567.dkr.ecr.eu-west-1.amazonaws.com
+  - DOCKERHUB_ENDPOINT=elitltd
   - DOCKER_REPO=pgloader
 script:
 - "./build-docker.sh"

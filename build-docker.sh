@@ -19,5 +19,5 @@ aws ecr get-login-password --region eu-west-1 | docker login --username AWS --pa
 docker build -f Dockerfile.ccl -t $DOCKER_REPO .
 docker run --rm --name pgloader $DOCKER_REPO bash -c "pgloader --version"
 
-docker tag $DOCKER_REPO $ECR_ENDPOINT/$DOCKER_REPO:$TAG
-docker push $ECR_ENDPOINT/$DOCKER_REPO:$TAG
+docker tag $DOCKER_REPO $DOCKERHUB_ENDPOINT/$DOCKER_REPO:$TAG
+docker push $DOCKERHUB_ENDPOINT/$DOCKER_REPO:$TAG
