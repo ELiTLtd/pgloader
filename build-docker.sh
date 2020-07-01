@@ -17,5 +17,5 @@ echo "$DOCKER_PASSWORD" | docker login -u $DOCKER_USERNAME --password-stdin
 docker build -f Dockerfile.ccl -t $DOCKER_REPO .
 docker run --rm --name pgloader $DOCKER_REPO bash -c "pgloader --version"
 
-docker tag $DOCKER_REPO $DOCKERHUB_USERNAME/$DOCKER_REPO:$TAG
-docker push $DOCKERHUB_ENDPOINT/$DOCKER_REPO:$TAG
+docker tag $DOCKER_REPO $DOCKER_USERNAME/$DOCKER_REPO:$TAG
+docker push $DOCKER_USERNAME/$DOCKER_REPO:$TAG
